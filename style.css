@@ -39,7 +39,7 @@ body {
   top: 0;
   left: 0;
   width: 56px;
-  height: 120px;
+  height: 110px;
   will-change: transform;
   visibility: hidden;
   cursor: grab;

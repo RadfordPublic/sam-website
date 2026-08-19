@@ -25,6 +25,7 @@
     "bruh",
 	"*whirlpooling*",
 	"*vibing*",
+	"don't worry i haven't installed a bitcoin miner",
   ];
 
   var lastSpeechLine = null;
@@ -167,7 +168,7 @@
   var rightWall = Bodies.rectangle(W + 40, H / 2, 80, H * 2, wallOpts);
 
   var buddyW = 56;
-  var buddyH = 120;
+  var buddyH = 110;
   var buddyBody = Bodies.rectangle(150, H - buddyH / 2, buddyW, buddyH, {
     restitution: 0.3,
     friction: 0.7,
@@ -209,6 +210,20 @@
 
   var runner = Runner.create();
   Runner.run(runner, engine);
+
+  // Matter's mouse handlers call event.preventDefault() on every touch event
+  // on the stage (not just ones that hit a body), which stops the browser
+  // from ever synthesizing a click - silently swallowing taps on the links
+  // inside chips (only noticeable on touch devices, not with a mouse). Stop
+  // those events in the capture phase so they never reach Matter's handlers.
+  function letLinksThrough(e) {
+    if (e.target.closest("a")) e.stopPropagation();
+  }
+  ["touchstart", "touchmove", "touchend", "mousedown", "mousemove", "mouseup"].forEach(
+    function (type) {
+      stage.addEventListener(type, letLinksThrough, true);
+    }
+  );
 
   var mouse = Mouse.create(stage);
   var mouseConstraint = MouseConstraint.create(engine, {
