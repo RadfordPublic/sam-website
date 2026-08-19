@@ -211,15 +211,19 @@
   var runner = Runner.create();
   Runner.run(runner, engine);
 
-  // Matter's mouse constraint grabs touches on chips before the browser can
-  // turn them into a click, which silently swallows taps on the links inside
-  // them (only noticeable on touch devices, not with a mouse). Stop those
-  // events in the capture phase so they never reach Matter's handlers.
+  // Matter's mouse handlers call event.preventDefault() on every touch event
+  // on the stage (not just ones that hit a body), which stops the browser
+  // from ever synthesizing a click - silently swallowing taps on the links
+  // inside chips (only noticeable on touch devices, not with a mouse). Stop
+  // those events in the capture phase so they never reach Matter's handlers.
   function letLinksThrough(e) {
     if (e.target.closest("a")) e.stopPropagation();
   }
-  stage.addEventListener("touchstart", letLinksThrough, true);
-  stage.addEventListener("mousedown", letLinksThrough, true);
+  ["touchstart", "touchmove", "touchend", "mousedown", "mousemove", "mouseup"].forEach(
+    function (type) {
+      stage.addEventListener(type, letLinksThrough, true);
+    }
+  );
 
   var mouse = Mouse.create(stage);
   var mouseConstraint = MouseConstraint.create(engine, {
