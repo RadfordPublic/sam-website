@@ -25,6 +25,7 @@
     "bruh",
 	"*whirlpooling*",
 	"*vibing*",
+	"don't worry i haven't installed a bitcoin miner",
   ];
 
   var lastSpeechLine = null;
@@ -167,7 +168,7 @@
   var rightWall = Bodies.rectangle(W + 40, H / 2, 80, H * 2, wallOpts);
 
   var buddyW = 56;
-  var buddyH = 120;
+  var buddyH = 110;
   var buddyBody = Bodies.rectangle(150, H - buddyH / 2, buddyW, buddyH, {
     restitution: 0.3,
     friction: 0.7,
@@ -209,6 +210,16 @@
 
   var runner = Runner.create();
   Runner.run(runner, engine);
+
+  // Matter's mouse constraint grabs touches on chips before the browser can
+  // turn them into a click, which silently swallows taps on the links inside
+  // them (only noticeable on touch devices, not with a mouse). Stop those
+  // events in the capture phase so they never reach Matter's handlers.
+  function letLinksThrough(e) {
+    if (e.target.closest("a")) e.stopPropagation();
+  }
+  stage.addEventListener("touchstart", letLinksThrough, true);
+  stage.addEventListener("mousedown", letLinksThrough, true);
 
   var mouse = Mouse.create(stage);
   var mouseConstraint = MouseConstraint.create(engine, {
