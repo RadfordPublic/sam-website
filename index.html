@@ -10,6 +10,22 @@
 </head>
 <body>
   <div class="stage" id="stage">
+    <div class="buddy" id="buddy" aria-hidden="true">
+      <svg id="buddy-figure" viewBox="0 0 56 120" width="56" height="120">
+        <circle cx="28" cy="20" r="14" fill="#ffffff" />
+        <circle class="eye" id="eye-l" cx="23" cy="18" r="2" fill="#0a1a3f" />
+        <circle class="eye" id="eye-r" cx="33" cy="18" r="2" fill="#0a1a3f" />
+        <path id="mouth" class="mouth" d="M22,27 Q28,32 34,27" stroke="#0a1a3f" stroke-width="2.5" stroke-linecap="round" fill="none" />
+        <line x1="28" y1="34" x2="28" y2="68" stroke="#ffffff" stroke-width="4" stroke-linecap="round" />
+        <line x1="28" y1="42" x2="12" y2="58" stroke="#ffffff" stroke-width="4" stroke-linecap="round" />
+        <line x1="28" y1="42" x2="44" y2="58" stroke="#ffffff" stroke-width="4" stroke-linecap="round" />
+        <line x1="28" y1="68" x2="16" y2="108" stroke="#ffffff" stroke-width="4" stroke-linecap="round" />
+        <line x1="28" y1="68" x2="40" y2="108" stroke="#ffffff" stroke-width="4" stroke-linecap="round" />
+      </svg>
+    </div>
+
+    <div class="speech-bubble" id="buddy-speech" aria-hidden="true"></div>
+
     <div class="chip" id="chip-name" data-lane="0">
       <h1>Hi 👋, I'm Sam</h1>
     </div>
