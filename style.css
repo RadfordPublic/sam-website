@@ -34,6 +34,168 @@ body {
   visibility: visible;
 }
 
+.buddy {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 56px;
+  height: 120px;
+  will-change: transform;
+  visibility: hidden;
+  cursor: grab;
+}
+
+.buddy.ready {
+  visibility: visible;
+}
+
+.buddy:active {
+  cursor: grabbing;
+}
+
+#buddy-figure {
+  display: block;
+  transform-origin: 50% 100%;
+}
+
+#buddy-figure.buddy-bounce {
+  animation: buddy-bounce 350ms ease;
+}
+
+#buddy-figure.buddy-dragging {
+  animation: buddy-drag-wobble 500ms ease-in-out infinite;
+}
+
+#buddy-figure.buddy-falling {
+  transform: scaleY(1.15) scaleX(0.9);
+}
+
+#buddy-figure.buddy-landed {
+  animation: buddy-landed 300ms ease;
+}
+
+@keyframes buddy-bounce {
+  0% { transform: scale(1); }
+  30% { transform: scale(0.85, 1.15) rotate(-4deg); }
+  60% { transform: scale(1.1, 0.9) rotate(3deg); }
+  100% { transform: scale(1); }
+}
+
+@keyframes buddy-drag-wobble {
+  0%, 100% { transform: rotate(-4deg) scale(1.05); }
+  50% { transform: rotate(4deg) scale(1.05); }
+}
+
+@keyframes buddy-landed {
+  0% { transform: scaleY(0.8) scaleX(1.15); }
+  60% { transform: scaleY(1.05) scaleX(0.97); }
+  100% { transform: scale(1); }
+}
+
+.eye {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 100ms ease;
+}
+
+.eye.blink {
+  transform: scaleY(0.1);
+}
+
+#buddy-figure.buddy-falling .eye {
+  transform: scale(1.2);
+}
+
+#buddy-figure.buddy-idle {
+  animation: buddy-idle-sway 4200ms ease-in-out infinite;
+}
+
+.mouth {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.mouth.talking {
+  animation: buddy-talk 260ms ease-in-out infinite;
+}
+
+@keyframes buddy-talk {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.35); }
+}
+
+@keyframes buddy-idle-sway {
+  0%, 100% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(1.5deg); }
+}
+
+.speech-bubble {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  transform: translate(0, -50%);
+  background: #ffffff;
+  color: #111111;
+  padding: 0.4rem 0.65rem;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  max-width: min(70vw, 320px);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  will-change: transform, opacity;
+  transition: opacity 160ms ease;
+}
+
+.speech-bubble.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  left: -5px;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  background: #ffffff;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+@media (max-width: 600px) {
+  .speech-bubble {
+    white-space: normal;
+    max-width: 80vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #buddy-figure.buddy-bounce,
+  #buddy-figure.buddy-dragging,
+  #buddy-figure.buddy-falling,
+  #buddy-figure.buddy-landed,
+  #buddy-figure.buddy-idle {
+    animation: none;
+    transform: none;
+  }
+
+  .eye {
+    transition: none;
+  }
+
+  .mouth.talking {
+    animation: none;
+    transform: none;
+  }
+
+  .speech-bubble {
+    transition: none;
+  }
+}
+
 .chip h1,
 .chip p {
   margin: 0;
