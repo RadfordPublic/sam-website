@@ -16,12 +16,12 @@
     "this is my cardio.",
   ];
   var ESCALATION_LINES = [
-    "please just check my github, stop playing with me 🙂",
+    "please just check my GitHub, stop playing with me 🙂",
     "LinkedIn this GitHub that",
   ];
-  var THROW_LINES = ["wheee!", "okay okay!", "redbull sponsor me!", "put me down!"];
+  var THROW_LINES = ["wheee!", "redbull sponsor me!", "put me down!"];
   var IDLE_LINES = [
-    "...so, github?",
+    "...so, GitHub?",
     "bruh",
 	"*whirlpooling*",
 	"*vibing*",
