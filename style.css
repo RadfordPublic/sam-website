@@ -1,0 +1,101 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background-color: #8a8a86;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+.stage {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.chip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+  visibility: hidden;
+}
+
+.chip.ready {
+  visibility: visible;
+}
+
+.chip h1,
+.chip p {
+  margin: 0;
+  background: #ffffff;
+  color: #111111;
+  padding: 0.5rem;
+  white-space: nowrap;
+}
+
+.chip h1 {
+  font-weight: 600;
+  font-size: clamp(1.8rem, 6vw, 3rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.chip p {
+  font-size: 1rem;
+}
+
+.chip p.small {
+  font-size: 0.875rem;
+}
+
+.chip p.tiny {
+  font-size: 0.75rem;
+}
+
+a {
+  color: #111111;
+  text-decoration: underline;
+  text-decoration-color: rgba(17, 17, 17, 0.35);
+}
+
+a:hover {
+  text-decoration-color: #111111;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 1rem;
+  pointer-events: none;
+}
+
+.footer-text {
+  font-size: 0.75rem;
+  color: #ffffff;
+  background: transparent;
+  opacity: 0.6;
+  padding: 0.25rem;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .chip h1,
+  .chip p {
+    white-space: normal;
+    max-width: 90vw;
+  }
+}
