@@ -14,6 +14,9 @@ body {
   background-color: #0a1a3f;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
 .stage {
@@ -194,6 +197,73 @@ body {
   .speech-bubble {
     transition: none;
   }
+
+  .death-screen,
+  .death-title,
+  .death-subtext {
+    transition: none;
+  }
+}
+
+.death-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.94) 100%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 1.8s ease, visibility 0s linear 1.8s;
+}
+
+.death-screen.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 1.8s ease;
+}
+
+.death-screen.tappable {
+  cursor: pointer;
+}
+
+.death-title {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.5rem, 9vw, 5.5rem);
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #8a0f0f;
+  text-shadow: 0 0 20px rgba(138, 15, 15, 0.65), 0 0 60px rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 1.6s ease, transform 1.6s ease;
+}
+
+.death-subtext {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.55);
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  transition-delay: 1.2s;
+}
+
+.death-screen.visible .death-title {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.3s;
+}
+
+.death-screen.visible .death-subtext {
+  opacity: 1;
 }
 
 .chip h1,

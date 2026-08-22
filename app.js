@@ -7,6 +7,7 @@
   var eyeR = document.getElementById("eye-r");
   var mouthEl = document.getElementById("mouth");
   var speechEl = document.getElementById("buddy-speech");
+  var deathScreenEl = document.getElementById("death-screen");
 
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -287,6 +288,35 @@
   var RESTING_SPEED_THRESHOLD = 0.05;
   var RESTING_DELAY_MS = 1000;
 
+  var died = false;
+  var allOffscreenSince = null;
+  var DEATH_THRESHOLD_MS = 1200;
+  var DEATH_FADE_MS = 1800;
+
+  function isOffscreen(b) {
+    var vw = window.innerWidth;
+    var vh = window.innerHeight;
+    var left = b.body.position.x - b.w / 2;
+    var right = b.body.position.x + b.w / 2;
+    var top = b.body.position.y - b.h / 2;
+    var bottom = b.body.position.y + b.h / 2;
+    return right < 0 || left > vw || bottom < 0 || top > vh;
+  }
+
+  function resetSite() {
+    location.reload();
+  }
+
+  function showDeathScreen() {
+    died = true;
+    deathScreenEl.classList.add("visible");
+    setTimeout(function () {
+      deathScreenEl.classList.add("tappable");
+      deathScreenEl.addEventListener("click", resetSite);
+      deathScreenEl.addEventListener("touchstart", resetSite);
+    }, DEATH_FADE_MS);
+  }
+
   function sync() {
     bodies.forEach(function (b) {
       var x = b.body.position.x - b.w / 2;
@@ -308,6 +338,18 @@
       } else {
         restingSince = null;
         buddyFigure.classList.remove("buddy-idle");
+      }
+    }
+
+    if (!died) {
+      if (bodies.every(isOffscreen)) {
+        if (allOffscreenSince === null) {
+          allOffscreenSince = performance.now();
+        } else if (performance.now() - allOffscreenSince > DEATH_THRESHOLD_MS) {
+          showDeathScreen();
+        }
+      } else {
+        allOffscreenSince = null;
       }
     }
 
